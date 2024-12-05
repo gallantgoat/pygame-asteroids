@@ -1,4 +1,5 @@
 import pygame
+import sys
 from constants import *
 from player import Player
 from asteroid import Asteroid
@@ -24,13 +25,23 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
+            
         for object in updatable:
             object.update(dt)
+
+        for object in asteroids:
+            if object.collision_check(player) == True:
+                print("Game over!")
+                sys.exit()
+
         screen.fill(000)
+
         for object in drawable:
             object.draw(screen)
+
         pygame.display.flip()
-        # We're calling tick here at the end of each iteration of the game loop
+
+        # We're calling tick here at *the end* of each iteration of the game loop to limit the framerate
         dt = Clock.tick(60) / 1000
 
 if __name__ == "__main__":
