@@ -40,6 +40,10 @@ def main():
             if object.collision_check(player) == True:
                 print("Game over!")
                 sys.exit()
+            for bullet in shots:
+                if object.collision_check(bullet) == True:
+                    object.kill()
+                    bullet.kill()
 
         screen.fill(000)
 
